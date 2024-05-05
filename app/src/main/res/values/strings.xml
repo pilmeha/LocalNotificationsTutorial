@@ -3,4 +3,10 @@
     <string name="title">Title</string>
     <string name="message">Message</string>
     <string name="schedule_notification">SCHEDULE NOTIFICATION</string>
+    <string name="НазваниеЛекарства">Название лекарства</string>
+    <string name="КомментарийКПриему">Комментарий к приему</string>
+    <string name="Название_лекарства">Название лекарства</string>
+    <string name="название_лекарства">Название лекарства</string>
+    <string name="комментарий_к_приему">Комментарий к приему</string>
+    <string name="записать_уведомление">Записать уведомление</string>
 </resources>

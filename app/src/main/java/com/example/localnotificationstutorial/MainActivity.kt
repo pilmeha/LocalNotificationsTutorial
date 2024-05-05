@@ -1,5 +1,6 @@
 package com.example.localnotificationstutorial
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.AlertDialog
@@ -8,9 +9,13 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.localnotificationstutorial.databinding.ActivityMainBinding
@@ -33,6 +38,18 @@ class MainActivity : AppCompatActivity()
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 //            insets
 //        }
+
+
+        val arrayString = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,
+                arrayString, 101)
+            }
+
 
         createNotificationChannel()
         binding.submitButton.setOnClickListener { scheduleNotification() }
@@ -73,11 +90,11 @@ class MainActivity : AppCompatActivity()
         val timeFormat = android.text.format.DateFormat.getTimeFormat(applicationContext)
 
         AlertDialog.Builder(this)
-            .setTitle("Notification Scheduled")
-            .setMessage("Title: " + title +
-                        "\nMessage: " + message +
-                        "\nAt: " + dateFormat.format(date) + " " + timeFormat.format(date))
-            .setPositiveButton("Okay"){_,_ ->}
+            .setTitle("Запись уведомления")
+            .setMessage("Название: " + title +
+                        "\nКомментарий: " + message +
+                        "\nВремя: " + dateFormat.format(date) + " " + timeFormat.format(date))
+            .setPositiveButton("Окей"){_,_ ->}
             .show()
     }
 
@@ -96,12 +113,14 @@ class MainActivity : AppCompatActivity()
 
     private fun createNotificationChannel()
     {
-        val name = "Notif Channel"
-        val desc = "A Description of the Channel"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(channelID, name, importance)
-        channel.description = desc
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Канал уведомлений"
+            val desc = "Канал уведомлений для напоминания о приеме лекарств"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelID, name, importance)
+            channel.description = desc
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }

@@ -20,7 +20,7 @@
             android:id="@+id/titleET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/title" />
+            android:hint="@string/название_лекарства" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -34,9 +34,17 @@
             android:id="@+id/messageET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/message" />
+            android:hint="@string/комментарий_к_приему" />
     </com.google.android.material.textfield.TextInputLayout>
-    
+
+    <TextView
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Выберите дату и время, когда Вам нужно напомнить о приеме лекарства"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +80,7 @@
         android:id="@+id/submitButton"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:text="@string/schedule_notification"
+        android:text="@string/записать_уведомление"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
